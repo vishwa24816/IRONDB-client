@@ -1,0 +1,131 @@
+{
+  "source": "internal/connection/types.go QueryResult",
+  "fields": [
+    {
+      "goField": "Success",
+      "jsonKey": "success",
+      "optional": false,
+      "goType": "bool"
+    },
+    {
+      "goField": "Message",
+      "jsonKey": "message",
+      "optional": false,
+      "goType": "string"
+    },
+    {
+      "goField": "Data",
+      "jsonKey": "data",
+      "optional": false,
+      "goType": "interface{}"
+    },
+    {
+      "goField": "Fields",
+      "jsonKey": "fields",
+      "optional": true,
+      "goType": "[]string"
+    },
+    {
+      "goField": "Messages",
+      "jsonKey": "messages",
+      "optional": true,
+      "goType": "[]string"
+    },
+    {
+      "goField": "Partial",
+      "jsonKey": "partial",
+      "optional": true,
+      "goType": "bool"
+    },
+    {
+      "goField": "ExecutedCount",
+      "jsonKey": "executedCount",
+      "optional": true,
+      "goType": "int"
+    },
+    {
+      "goField": "FailedIndex",
+      "jsonKey": "failedIndex",
+      "optional": true,
+      "goType": "int"
+    },
+    {
+      "goField": "BoundaryMode",
+      "jsonKey": "boundaryMode",
+      "optional": true,
+      "goType": "string"
+    },
+    {
+      "goField": "CommitMode",
+      "jsonKey": "commitMode",
+      "optional": true,
+      "goType": "string"
+    },
+    {
+      "goField": "Warnings",
+      "jsonKey": "warnings",
+      "optional": true,
+      "goType": "[]string"
+    },
+    {
+      "goField": "OutcomeUnknown",
+      "jsonKey": "outcomeUnknown",
+      "optional": true,
+      "goType": "bool"
+    },
+    {
+      "goField": "FailedObjectTypes",
+      "jsonKey": "failedObjectTypes",
+      "optional": true,
+      "goType": "[]string"
+    },
+    {
+      "goField": "Retryable",
+      "jsonKey": "retryable",
+      "optional": true,
+      "goType": "bool"
+    },
+    {
+      "goField": "Truncated",
+      "jsonKey": "truncated",
+      "optional": true,
+      "goType": "bool"
+    },
+    {
+      "goField": "ScannedCount",
+      "jsonKey": "scannedCount",
+      "optional": true,
+      "goType": "int"
+    },
+    {
+      "goField": "DurationMs",
+      "jsonKey": "durationMs",
+      "optional": true,
+      "goType": "int64"
+    },
+    {
+      "goField": "QueryID",
+      "jsonKey": "queryId",
+      "optional": true,
+      "goType": "string"
+    },
+    {
+      "goField": "CancellationState",
+      "jsonKey": "cancellationState",
+      "optional": true,
+      "goType": "string"
+    },
+    {
+      "goField": "TransactionID",
+      "jsonKey": "transactionId",
+      "optional": true,
+      "goType": "string"
+    },
+    {
+      "goField": "TransactionPending",
+      "jsonKey": "transactionPending",
+      "optional": true,
+      "goType": "bool"
+    }
+  ]
+}

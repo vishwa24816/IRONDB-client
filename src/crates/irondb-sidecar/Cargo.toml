@@ -1,0 +1,16 @@
+[package]
+name = "irondb-sidecar"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.149"
+thiserror = "2"
+tokio = { version = "1.53.2", features = ["full"] }
+tokio-util = { version = "0.7.19", features = ["codec"] }
+futures = "0.3.32"
+
+[dev-dependencies]
+tempfile = "3"
+tokio = { version = "1.53.2", features = ["macros", "rt-multi-thread"] }

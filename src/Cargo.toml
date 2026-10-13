@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/irondb-contracts", "crates/irondb-store", "crates/irondb-drivers", "crates/irondb-domain", "crates/irondb-datasources", "crates/irondb-facade", "crates/irondb-sidecar", "crates/irondb-drivers-e2e", "crates/irondb-headless", "crates/irondb-signoff", "src-tauri"]
+resolver = "2"

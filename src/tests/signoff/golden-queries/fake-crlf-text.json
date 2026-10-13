@@ -1,0 +1,20 @@
+{
+    "connection":  "fake",
+    "query":  "SELECT note FROM docs WHERE id = ?",
+    "params":  [
+
+               ],
+    "expectedColumns":  [
+                            "note"
+                        ],
+    "engine":  "fake",
+    "ordered":  true,
+    "mask":  [
+
+             ],
+    "rows":  [
+                 {
+                     "note":  "line1\nline2"
+                 }
+             ]
+}

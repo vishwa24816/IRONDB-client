@@ -1,0 +1,47 @@
+[package]
+name = "irondb-drivers-e2e"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+irondb-drivers = { path = "../irondb-drivers" }
+irondb-datasources = { path = "../irondb-datasources" }
+irondb-facade = { path = "../irondb-facade" }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+testcontainers-modules = { version = "0.15.0", features = ["postgres", "mysql", "mssql_server", "redis", "elastic_search", "mongo"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[[test]]
+name = "mysql"
+path = "tests/drivers/mysql.rs"
+
+[[test]]
+name = "postgres"
+path = "tests/drivers/postgres.rs"
+
+[[test]]
+name = "mssql"
+path = "tests/drivers/mssql.rs"
+
+[[test]]
+name = "sqlite"
+path = "tests/drivers/sqlite.rs"
+
+[[test]]
+name = "mongodb"
+path = "tests/drivers/mongodb.rs"
+
+[[test]]
+name = "redis"
+path = "tests/drivers/redis.rs"
+
+[[test]]
+name = "elasticsearch"
+path = "tests/drivers/elasticsearch.rs"
+
+[[test]]
+name = "oracle_diff"
+path = "tests/drivers/oracle_diff.rs"

@@ -1,0 +1,22 @@
+{
+    "connection":  "fake",
+    "query":  "SELECT 1 AS id, \u0027hello\u0027 AS name",
+    "params":  [
+
+               ],
+    "expectedColumns":  [
+                            "id",
+                            "name"
+                        ],
+    "engine":  "fake",
+    "ordered":  true,
+    "mask":  [
+
+             ],
+    "rows":  [
+                 {
+                     "id":  1,
+                     "name":  "hello"
+                 }
+             ]
+}

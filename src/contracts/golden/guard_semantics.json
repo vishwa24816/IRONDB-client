@@ -1,0 +1,43 @@
+[
+  {
+    "guard": "connectionReadOnly",
+    "trigger": "write/DDL action on a connection with ReadOnly=true or forced-readonly type",
+    "expectedSuccess": false,
+    "messageKey": "query_editor.message.connection_readonly_blocked",
+    "evidence": [
+      "ReadOnly",
+      "connectionReadOnly",
+      "connection_readonly_blocked"
+    ]
+  },
+  {
+    "guard": "productionRiskConfirm",
+    "trigger": "mutating action on a connection with environmentType=production without explicit confirm",
+    "expectedSuccess": false,
+    "messageKey": "connection.production_risk.message",
+    "evidence": [
+      "confirmProductionMutation",
+      "confirmProductionRisk",
+      "productionRiskConfirm",
+      "production_risk"
+    ]
+  },
+  {
+    "guard": "connectionProtection.RestrictScriptExecution",
+    "trigger": "script execution when protection config sets RestrictScriptExecution",
+    "expectedSuccess": false,
+    "messageKey": "connection.backend.action.preview_result_changes",
+    "evidence": [
+      "connection_readonly.go:hasAnyConnectionProtection"
+    ]
+  },
+  {
+    "guard": "embeddedWriteStatementBlock",
+    "trigger": "containsEmbeddedWriteStatement(dbType, sql)=true on readonly/embedded path (sql_embedded_write.go)",
+    "expectedSuccess": false,
+    "messageKey": "query_editor.message.connection_readonly_blocked",
+    "evidence": [
+      "sql_embedded_write.go:containsEmbeddedWriteStatement"
+    ]
+  }
+]

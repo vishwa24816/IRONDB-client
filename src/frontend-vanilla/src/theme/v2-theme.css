@@ -1,0 +1,14 @@
+/* v2-theme.css：按区域拆分为 styles/v2Theme/ 下的分片，导入顺序即原层叠顺序，勿调换。 */
+@import './v2Theme/v2-theme-01-irondb-v2.css';
+@import './v2Theme/v2-theme-02-select-dropdown.css';
+@import './v2Theme/v2-theme-03-datagrid-project-s.css';
+@import './v2Theme/v2-theme-04-code-sql-editor.css';
+@import './v2Theme/v2-theme-05-v2-structural-shell.css';
+@import './v2Theme/v2-theme-06-keep-the-current.css';
+@import './v2Theme/v2-theme-07-the-explorer-tree.css';
+@import './v2Theme/v2-theme-08-host-grouping-drag.css';
+@import './v2Theme/v2-theme-09-full-v2-workbench.css';
+@import './v2Theme/v2-theme-10-v2-datagrid.css';
+@import './v2Theme/v2-theme-11-part11.css';
+@import './v2Theme/v2-theme-12-result-format-is.css';
+@import './v2Theme/v2-theme-13-v2-context-menus.css';

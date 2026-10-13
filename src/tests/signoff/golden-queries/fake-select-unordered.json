@@ -1,0 +1,26 @@
+{
+    "connection":  "fake",
+    "query":  "SELECT id, name FROM users",
+    "params":  [
+
+               ],
+    "expectedColumns":  [
+                            "id",
+                            "name"
+                        ],
+    "engine":  "fake",
+    "ordered":  false,
+    "mask":  [
+
+             ],
+    "rows":  [
+                 {
+                     "id":  2,
+                     "name":  "bob"
+                 },
+                 {
+                     "id":  1,
+                     "name":  "ann"
+                 }
+             ]
+}

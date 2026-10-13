@@ -1,0 +1,147 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="$(var.ProductName)"
+           Manufacturer="Syngnat"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           ProductCode="*"
+           UpgradeCode="$(var.UpgradeCode)"
+           Scope="perMachine"
+           InstallerVersion="500"
+           Compressed="yes">
+    <MajorUpgrade AllowDowngrades="yes"
+                  Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Icon Id="IRONDBIcon" SourceFile="$(var.IconPath)" />
+    <Property Id="ARPPRODUCTICON" Value="IRONDBIcon" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/Syngnat/IRONDB" />
+    <!-- Channel switches and dev builds may install an executable with a lower or equal file version.
+         Always replace installer-owned files instead of leaving a related product's key path in place. -->
+    <Property Id="REINSTALLMODE" Value="amus" />
+    <Property Id="INSTALLDESKTOPSHORTCUT" Value="1" Secure="yes" />
+    <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLFOLDER]" After="CostFinalize" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.LicenseRtf)" />
+
+    <Feature Id="MainFeature" Title="$(var.ProductName)" Level="1">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="DesktopShortcutComponent" />
+    </Feature>
+
+    <Component Id="MainExecutable"
+               Directory="INSTALLFOLDER"
+               Guid="$(var.ComponentGuid)"
+               Bitness="always64">
+      <File Id="IRONDBExe"
+            Source="$(var.SourceExe)"
+            Name="IRONDB.exe"
+            KeyPath="yes">
+        <!-- Keep shortcut icons bound to the stable executable path. Referencing the MSI Icon table
+             can leave Windows shell caches pointing at the removed product cache after a major upgrade. -->
+        <Shortcut Id="StartMenuShortcut"
+                  Directory="ProgramMenuFolder"
+                  Name="$(var.ProductName)"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Advertise="no">
+          <ShortcutProperty Key="System.AppUserModel.ID" Value="Syngnat.IRONDB" />
+        </Shortcut>
+      </File>
+      <File Id="IRONDBMsiInstallMarker"
+            Source="$(var.InstallMarker)"
+            Name=".irondb-msi-install" />
+      <File Id="IRONDBLicense"
+            Source="$(var.LicenseFile)"
+            Name="LICENSE.txt" />
+      <File Id="IRONDBNotice"
+            Source="$(var.NoticeFile)"
+            Name="NOTICE.txt" />
+      <RegistryValue Root="HKLM"
+                     Key="Software\Syngnat\$(var.RegistryKeyName)"
+                     Name="InstallType"
+                     Value="MSI"
+                     Type="string"
+                     KeyPath="no" />
+      <RegistryValue Root="HKLM"
+                     Key="Software\Syngnat\$(var.RegistryKeyName)"
+                     Name="InstallPath"
+                     Value="[INSTALLFOLDER]IRONDB.exe"
+                     Type="string"
+                     KeyPath="no" />
+    </Component>
+
+    <!-- Online updates pass the user's pre-update desktop shortcut state. Keeping this resource
+         in its own component lets a major upgrade remove an unwanted old shortcut without
+         recreating it, while first-time and manual installs retain the existing default. -->
+    <Component Id="DesktopShortcutComponent"
+               Directory="DesktopFolder"
+               Guid="$(var.DesktopShortcutComponentGuid)"
+               Bitness="always64"
+               Condition="INSTALLDESKTOPSHORTCUT = 1">
+      <Shortcut Id="DesktopShortcut"
+                Name="$(var.ProductName)"
+                Target="[#IRONDBExe]"
+                WorkingDirectory="INSTALLFOLDER"
+                Advertise="no">
+        <ShortcutProperty Key="System.AppUserModel.ID" Value="Syngnat.IRONDB" />
+      </Shortcut>
+      <RegistryValue Root="HKLM"
+                     Key="Software\Syngnat\$(var.RegistryKeyName)"
+                     Name="DesktopShortcutInstalled"
+                     Value="1"
+                     Type="integer"
+                     KeyPath="yes" />
+    </Component>
+
+    <ui:WixUI Id="WixUI_InstallDir"
+              InstallDirectory="INSTALLFOLDER"
+              ExtendedPathValidation="yes" />
+
+    <!-- Brand icon switching rewrites the IconLocation of the IRONDB shortcuts at
+         run time with standard user privileges. Explorer anchors the taskbar
+         button to the IconLocation of the shortcut resolved through the
+         AppUserModel.ID, so a read-only shortcut freezes the button on a stale
+         brand icon and leaves the desktop and Start Menu entries behind while
+         every other surface updates ("shortcut is not writable", observed on
+         Windows 11 26200). Grant Users modify on exactly these two
+         installer-owned .lnk files after they are created - never on the
+         containing directories - so runtime switches can update them. -->
+    <!-- Data pass to the deferred actions follows the documented pattern: an
+         immediate type 51 scheduled in the execute sequence formats the
+         icacls command line (directory properties resolve at script
+         generation) into a property write that lands in the execution
+         script; the deferred type 18 then expands it as its
+         CustomActionData. Granting requires the elevated, deferred context. -->
+    <CustomAction Id="SetGrantUsersModifyStartMenuShortcutCmd"
+                  Property="GrantUsersModifyStartMenuShortcut"
+                  Value="&quot;[SystemFolder]icacls.exe&quot; &quot;[ProgramMenuFolder]$(var.ProductName).lnk&quot; /grant *S-1-5-32-545:M" />
+    <CustomAction Id="GrantUsersModifyStartMenuShortcut"
+                  Directory="SystemFolder"
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="ignore"
+                  ExeCommand="[GrantUsersModifyStartMenuShortcut]" />
+    <CustomAction Id="SetGrantUsersModifyDesktopShortcutCmd"
+                  Property="GrantUsersModifyDesktopShortcut"
+                  Value="&quot;[SystemFolder]icacls.exe&quot; &quot;[DesktopFolder]$(var.ProductName).lnk&quot; /grant *S-1-5-32-545:M" />
+    <CustomAction Id="GrantUsersModifyDesktopShortcut"
+                  Directory="SystemFolder"
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="ignore"
+                  ExeCommand="[GrantUsersModifyDesktopShortcut]" />
+    <InstallExecuteSequence>
+      <Custom Action="SetGrantUsersModifyStartMenuShortcutCmd" After="InstallFiles" Condition="NOT REMOVE" />
+      <Custom Action="GrantUsersModifyStartMenuShortcut" Before="InstallFinalize" Condition="NOT REMOVE" />
+      <Custom Action="SetGrantUsersModifyDesktopShortcutCmd" After="InstallFiles" Condition="NOT REMOVE" />
+      <Custom Action="GrantUsersModifyDesktopShortcut" Before="InstallFinalize" Condition="NOT REMOVE" />
+    </InstallExecuteSequence>
+  </Package>
+
+  <Fragment>
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="$(var.InstallFolderName)" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+    <StandardDirectory Id="DesktopFolder" />
+  </Fragment>
+</Wix>

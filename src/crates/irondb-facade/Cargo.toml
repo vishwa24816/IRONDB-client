@@ -1,0 +1,19 @@
+[package]
+name = "irondb-facade"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+irondb-store = { path = "../irondb-store" }
+irondb-drivers = { path = "../irondb-drivers" }
+irondb-domain = { path = "../irondb-domain" }
+irondb-datasources = { path = "../irondb-datasources" }
+irondb-contracts = { path = "../irondb-contracts" }
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+tokio-rusqlite = "0.8"
+serde_json = "1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tempfile = "3"

@@ -1,0 +1,22 @@
+[package]
+name = "irondb-tauri"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1" }
+serde_json = { version = "1" }
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7.19" }
+keyring = { version = "4.2.0" }
+uuid = { version = "1.27.0", features = ["v4"] }
+irondb-facade = { path = "../crates/irondb-facade", version = "0.1" }
+irondb-contracts = { path = "../crates/irondb-contracts", version = "0.1" }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

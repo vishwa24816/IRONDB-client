@@ -1,0 +1,21 @@
+{
+  "name": "frontend-vanilla",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 1420",
+    "build": "vite build",
+    "test": "node --test tests/*.test.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "monaco-editor": "0.57.0",
+    "sql-formatter": "15.9.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.1",
+    "vite": "^6"
+  }
+}

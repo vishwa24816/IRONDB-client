@@ -1,0 +1,20 @@
+pub mod ai;
+pub mod audit;
+pub mod cdc;
+pub mod connection;
+pub mod diff;
+pub mod guard;
+pub mod import;
+pub mod jobs;
+pub mod mcp;
+pub mod param;
+pub mod pipeline;
+pub mod query;
+pub mod row_budget;
+pub mod spikes;
+pub mod sync;
+pub mod timeout;
+pub mod tunnel;
+
+pub use connection::ConnectionService;
+pub use query::QueryService;

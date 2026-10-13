@@ -1,0 +1,30 @@
+{
+  "locales": {
+    "de-DE": {
+      "keyCount": 12232,
+      "sha256": "b60b1a94892c15cdb71333abd08efc6fffba7abcd835ebbd3ef9917185bd99f4"
+    },
+    "en-US": {
+      "keyCount": 12232,
+      "sha256": "b8b45c8e9025c4f7b1ec727e2f4360420f4c6d0958e416ef63638a212015d8c1"
+    },
+    "ja-JP": {
+      "keyCount": 12232,
+      "sha256": "457da1d138f06840572295b8fc191a61d9cef72e153aff6fafdfdd3c92ea12ef"
+    },
+    "ru-RU": {
+      "keyCount": 12232,
+      "sha256": "de60c2e85fb4335271035ef24aa593489922a360625a91ead34f3f1b030384f1"
+    },
+    "zh-CN": {
+      "keyCount": 12232,
+      "sha256": "c2954dedf04e89f611f1f6324b527e3570bbdcab6e3ad7fd6d586dd65d06cb25"
+    },
+    "zh-TW": {
+      "keyCount": 12232,
+      "sha256": "2e996cdbe9246318cbad7f100e83617ae975014d59bc7dda4ea7486e117e85fb"
+    }
+  },
+  "commonKeysHash": "6df09f24ed55c3d91d4b75ffa6aadce6e87fe0fa050a283b420cb8c21e9d44e9",
+  "source": "IRONDB shared/i18n"
+}

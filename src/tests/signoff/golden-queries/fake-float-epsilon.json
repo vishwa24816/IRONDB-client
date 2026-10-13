@@ -1,0 +1,20 @@
+{
+    "connection":  "fake",
+    "query":  "SELECT 0.1+0.2 AS total",
+    "params":  [
+
+               ],
+    "expectedColumns":  [
+                            "total"
+                        ],
+    "engine":  "fake",
+    "ordered":  true,
+    "mask":  [
+
+             ],
+    "rows":  [
+                 {
+                     "total":  0.3
+                 }
+             ]
+}
